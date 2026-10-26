@@ -497,7 +497,9 @@ public final class MecanumDrive {
         );
     }
 
-    // NEW STUFF //
+    // ---------------------------------
+    // NEW STUFF
+    // ---------------------------------
 
 
     public void MecanumDrive(double forward, double strafe, double rotate) {
@@ -509,21 +511,12 @@ public final class MecanumDrive {
         double frontRightPower = forward - strafe - rotate;
         double backRightPower = forward + strafe - rotate;
 
-
-
-
         double maxPower = 1.00;
-
-
-
 
         maxPower = Math.max(maxPower, Math.abs(frontLeftPower));
         maxPower = Math.max(maxPower, Math.abs(backLeftPower));
         maxPower = Math.max(maxPower, Math.abs(frontRightPower));
         maxPower = Math.max(maxPower, Math.abs(backRightPower));
-
-
-
 
         leftFront.setPower(maxSpeed * (frontLeftPower / maxPower));
         leftBack.setPower(maxSpeed * (backLeftPower / maxPower));
@@ -536,15 +529,9 @@ public final class MecanumDrive {
         double newForward, newStrafe, newRotate; //we ignore newRotate
         double heading = lazyImu.get().getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
 
-
-
-
         //changing input to field centric
         newForward = inputForward * Math.cos(heading) - inputStrafe * Math.sin(heading);
         newStrafe = inputStrafe * Math.cos(heading) + inputForward * Math.sin(heading);
-
-
-
 
         this.MecanumDrive(newForward, newStrafe, inputRotate);
     }
