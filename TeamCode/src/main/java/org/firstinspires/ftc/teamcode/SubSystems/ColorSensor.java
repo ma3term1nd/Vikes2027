@@ -14,7 +14,7 @@ public class ColorSensor {
         lower gain for brighter places
         always greater than or equal to 1
     */
-    public float gain = 2;
+    public float gain = 11;
 
     public enum DetetctedColor {
         RED_POLLEN,
@@ -40,11 +40,23 @@ public class ColorSensor {
 
         //todo: test colors and add if statements based on amounts of RGB
 
-        if (    normRed > 0.5 &&
-                normGreen > 0.5 &&
-                normBlue > 0.5      ) { // YELLOW_POLLEN
+        if (    normRed > 0 &&
+                normGreen > 0 &&
+                normBlue > 0      ) { // YELLOW_POLLEN
 
             return DetetctedColor.YELLOW_POLLEN;
+
+        } else if (    normRed > 0 &&
+                       normGreen > 0 &&
+                       normBlue > 0      ) { // RED_POLLEN
+
+            return DetetctedColor.RED_POLLEN;
+
+        } else if (    normRed > 0 &&
+                       normGreen > 0 &&
+                       normBlue > 0      ) { // BLUE_POLLEN
+
+            return DetetctedColor.BLUE_POLLEN;
 
         } else { // BLUE OR RED POLLEN
 
@@ -58,15 +70,19 @@ public class ColorSensor {
     // ----------------------------
 
     public float getNormRed() {
-        return normRed;
+        return colorSensor.getNormalizedColors().red;
     }
 
     public float getNormGreen() {
-        return normGreen;
+        return colorSensor.getNormalizedColors().green;
     }
 
     public float getNormBlue() {
-        return normBlue;
+        return colorSensor.getNormalizedColors().blue;
+    }
+
+    public float getAlpha() {
+        return colorSensor.getNormalizedColors().alpha;
     }
 
     public float getGain() {
@@ -74,12 +90,12 @@ public class ColorSensor {
     }
 
     public void increaseGain() {
-        this.gain += 0.005;
+        this.gain += 0.05;
         colorSensor.setGain(gain); //update gain
     }
 
     public void decreaseGain() {
-        this.gain -= 0.005;
+        this.gain -= 0.05;
         colorSensor.setGain(gain); //update gain
     }
 
